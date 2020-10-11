@@ -1,0 +1,206 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>list</title> 
+  <style>
+    body {
+  background-color: #ffffff;
+}
+
+.todo {
+  border: 1px solid white;
+  border-radius: 2em 2em;
+  background-color: #1e90ff;
+  width: 15em;
+  margin: 100px auto;
+  font-size: 20px;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+h4 {
+  padding-left: 30px;
+  display: inline-block;
+  margin-right: 80px;
+  cursor: default;
+  font-size: 20px;
+}
+
+.input-text {
+  border: 1px solid #1e90ff;
+  border-left: 3px solid white;
+  width: 13em;
+  margin-left: 30px;
+  height: 2rem;
+  background-color: #1e90ff;
+  color: white;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.input-text:focus {
+  outline-width: 0;
+}
+
+::placeholder {
+  color: white;
+}
+
+.btnadd {
+  background-color: white;
+  color: #1e90ff;
+  width: 5em;
+  height: 5em;
+  border: 1px solid #1e90ff;
+  border-radius: 10em;
+}
+
+.btnadd:hover {
+  border: 1px solid white;
+  background-color: #1e90ff;
+  color: white;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btnadd:focus {
+  outline-width: 0;
+}
+
+li {
+  cursor: default;
+}
+
+.list {
+  color: #1e90ff;
+  list-style-type: none;
+  background-color: white;
+  padding: 20px;
+  margin: 0px;
+  border: 1px solid #ffffff;
+  border-radius: 1em;
+}
+
+.list-item {
+  padding: 10px;
+}
+
+.list-item:hover {
+  display: block;
+  background-color: #a5a5a526;
+  border-radius: 0.5em;
+}
+
+hr {
+  height: 1px;
+  background-color: #1e90ff;
+  border: none;
+}
+
+.btn-del,
+.btn-edit {
+  float: right;
+  border: none;
+  background: none;
+}
+
+.btn-del {
+  color: #ff0000;
+  text-shadow: 1px 1px 1px #ccc;
+  font-size: 1em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-edit {
+  color: #00ff00;
+  text-shadow: 1px 1px 1px #ccc;
+  font-size: 1em;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btn-edit:hover,
+.btn-delet:hover {
+  text-shadow: 2px 2px 2px #ccc;
+}
+
+.btn-del:focus,
+.btn-edit:focus {
+  outline-width: 0;
+}
+
+  </style>
+</head>	
+<body>
+<div class="todo">
+<link rel="stylesheet" href="pro1.css" />
+<script src="proj 1.js"></script>
+  <h4>To Do List</h4>
+  <button id="btnadd" class="btnadd" onclick="addlist()">+</button>
+  <div class="input"><input type="text" class="input-text" id="txtinput" placeholder="Say Something!">
+  </div>
+  <ul class="list">
+    <div class="listCl" id="list">
+      <li>Today List</li>
+      <hr>
+    </div>
+  </ul>
+</div>
+<script>
+        let i = 1;
+        function textfixer(x) {
+            if (x) {
+                if (x.length >= 3) {
+                    return x;
+                } else {
+                    alert('min 3 more word');
+                }
+            } else {
+                alert("input req");
+            }
+        }
+
+        function addlist() {
+            let inputtext = document.getElementById('txtinput');
+            console.log(`${inputtext}`);
+            let list = document.getElementById('list');
+
+            let input = textfixer(inputtext.value);
+            if (input) {
+                `${showlist(input)}`;
+                input.value = "";
+            }
+        }
+
+        function showlist(input) {
+            list.innerHTML += `<li class="list-item" id="list${i}"><span id="list-text${i}">${input}
+            </span><button class="btn-del" onclick="deletelist(${i})"></div><i class="fa fa-trash" aria-hidden="true"></i></button><button class="btn-edit" onclick="editlist(${i})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></li>`;
+            i++;
+        }
+
+        function deletelist(listid) {
+            let current = document.getElementById(`list${listid}`);
+            let currentText = document.getElementById(`list-text${listid}`).innerHTML;
+            let deleteconfirm = confirm(`Are You sure to Delete! ${currentText}`)
+            if (deleteconfirm) {
+                list.removeChild(current);
+            } else {
+                console.log("remove cancel");
+            };
+        }
+
+        function editlist(listid) {
+            let currentText = document.getElementById(`list-text${listid}`).innerHTML;
+            let newtext = prompt(`Enter the world you wanted to edit ${currentText}`);
+
+            if (textfixer(newtext)) {
+                currentText.innerHTML = newtext;
+                console.log(`${currentText}`);
+            } else {
+                console.log('error');
+            }
+        }
+    </script>
+</body>
+</html>
